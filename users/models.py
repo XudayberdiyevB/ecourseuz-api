@@ -6,14 +6,17 @@ from .managers import CustomUserManager
 
 # Create your models here.
 
+
 class User(AbstractUser):
     username = models.CharField(max_length=32, unique=True, null=True)
-    email = models.EmailField(null=False, unique=True)
-    phone = models.CharField(max_length=15, null=False, unique=True)
-    job = models.CharField(max_length=129, null=False)
+    email = models.EmailField(unique=True)
+    phone = models.CharField(max_length=15, unique=True)
+    job = models.CharField(max_length=129)
     profile_picture = models.ImageField(upload_to='profile_picture/', null=True,
                                         default='../media/profile_picture/default.png')
-
+    address = models.CharField(max_length=256)
+    birth_date = models.DateField(null=False)
+    age = models.IntegerField(null=True)
     objects = CustomUserManager()
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
