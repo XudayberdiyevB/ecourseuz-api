@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import User, UserTypes
+from .models import User
 
 
 # Register your models here.
@@ -8,6 +8,3 @@ from .models import User, UserTypes
 class UserAdmin(admin.ModelAdmin):
     list_display = ['email', 'first_name', 'last_name']
     ordering = ['-date_joined']
-
-
-admin.site.register(UserTypes)

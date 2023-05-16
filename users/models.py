@@ -4,25 +4,13 @@ from django.db import models
 from .managers import CustomUserManager
 
 
-class UserTypes(models.Model):
-    STUDENT = 1
-    TEACHER = 2
-    SUPERVISOR = 3
-    ADMIN = 4
-    TYPE_CHOICES = (
-        (STUDENT, 'student'),
-        (TEACHER, 'teacher'),
-        (SUPERVISOR, 'supervisor'),
-        (ADMIN, 'admin'),
-    )
-
-    id = models.PositiveSmallIntegerField(choices=TYPE_CHOICES, primary_key=True)
-
-    def __str__(self):
-        return self.get_id_display()
-
-
 class User(AbstractUser):
+    class UserTypes(models.TextChoices):
+        STUDENT = 'student'
+        TEACHER = 'teacher'
+        SUPERVISOR = 'supervisor'
+        ADMIN = 'admin'
+
     username = models.CharField(max_length=32, unique=True, null=True)
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=15, unique=True)
@@ -31,7 +19,7 @@ class User(AbstractUser):
     address = models.CharField(max_length=256, null=True)
     birth_date = models.DateField(null=True)
     age = models.IntegerField(null=True)
-    roles = models.ManyToManyField(UserTypes, related_name='user_types')
+    type = models.CharField(max_length=50, choices=UserTypes.choices)
 
     objects = CustomUserManager()
 
