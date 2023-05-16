@@ -1,6 +1,7 @@
 from django.db import models
 
 from users.models import User
+from common.models.category import Category
 
 
 class Course(models.Model):
@@ -14,6 +15,11 @@ class Course(models.Model):
         User,
         on_delete=models.CASCADE,
         related_name='user_course'
+    )
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+        related_name='category_course'
     )
     image = models.ImageField(upload_to='course_picture/', blank=True, null=True)
     video = models.FileField(upload_to='course_video/')
