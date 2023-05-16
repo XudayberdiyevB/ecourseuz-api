@@ -6,7 +6,7 @@ __pycache__/
 
 # C extensions
 *.so
-
+/media
 # Distribution / packaging
 .Python
 build/
@@ -116,7 +116,7 @@ __pypackages__/
 # Celery stuff
 celerybeat-schedule
 celerybeat.pid
-
+Makefile
 # SageMath parsed files
 *.sage.py
 
@@ -128,7 +128,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-
+media
 # Spyder project settings
 .spyderproject
 .spyproject
