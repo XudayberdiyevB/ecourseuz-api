@@ -30,14 +30,14 @@ class Course(models.Model):
 
 
 class CourseContent(models.Model):
-    CHOICE_PUBLIC = [
+    CHOICES_PUBLIC = [
         ('0', False),
         ('1', True)
     ]
     title = models.CharField(max_length=100)
     description = models.TextField()
     video = models.FileField(upload_to='videos/')
-    is_public = models.CharField(max_length=1, choices=CHOICE_PUBLIC)
+    is_public = models.CharField(max_length=1, choices=CHOICES_PUBLIC)
     time = models.TimeField(auto_now_add=True)
     course_id = models.ForeignKey(
         Course,
