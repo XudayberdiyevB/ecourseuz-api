@@ -19,7 +19,7 @@ class User(AbstractUser):
     address = models.CharField(max_length=256, null=True)
     birth_date = models.DateField(null=True)
     age = models.IntegerField(null=True)
-    type = models.CharField(max_length=50, choices=UserTypes.choices)
+    type = models.CharField(max_length=50, choices=UserTypes.choices, default=UserTypes.STUDENT)
 
     objects = CustomUserManager()
 
