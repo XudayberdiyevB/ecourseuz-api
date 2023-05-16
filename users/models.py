@@ -9,7 +9,6 @@ class User(AbstractUser):
         STUDENT = 'student'
         TEACHER = 'teacher'
         SUPERVISOR = 'supervisor'
-        ADMIN = 'admin'
 
     username = models.CharField(max_length=32, unique=True, null=True)
     email = models.EmailField(unique=True)
@@ -19,7 +18,7 @@ class User(AbstractUser):
     address = models.CharField(max_length=256, null=True)
     birth_date = models.DateField(null=True)
     age = models.IntegerField(null=True)
-    type = models.CharField(max_length=50, choices=UserTypes.choices)
+    type = models.CharField(max_length=50, choices=UserTypes.choices, default=UserTypes.STUDENT)
 
     objects = CustomUserManager()
 
@@ -32,3 +31,8 @@ class User(AbstractUser):
     @property
     def full_name(self):
         return self.get_full_name()
+
+    def save(self, *args, **kwargs):
+        if self.is_superuser == True:
+            self.type = 'admin'
+        super(User, self).save(*args, **kwargs)
