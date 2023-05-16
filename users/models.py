@@ -16,7 +16,9 @@ class User(AbstractUser):
     address = models.CharField(max_length=256, null=True)
     birth_date = models.DateField(null=True)
     age = models.IntegerField(null=True)
+
     objects = CustomUserManager()
+
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
