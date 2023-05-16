@@ -9,7 +9,6 @@ class User(AbstractUser):
         STUDENT = 'student'
         TEACHER = 'teacher'
         SUPERVISOR = 'supervisor'
-        ADMIN = 'admin'
 
     username = models.CharField(max_length=32, unique=True, null=True)
     email = models.EmailField(unique=True)
@@ -19,16 +18,29 @@ class User(AbstractUser):
     address = models.CharField(max_length=256, null=True)
     birth_date = models.DateField(null=True)
     age = models.IntegerField(null=True)
-    type = models.CharField(max_length=50, choices=UserTypes.choices)
+    type = models.CharField(max_length=50, choices=UserTypes.choices, default=UserTypes.STUDENT)
 
     objects = CustomUserManager()
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
-
+    
     def __str__(self):
         return self.email
-
+      
+    def save(self, *args, **kwargs):
+        if self.is_superuser == True:
+            self.type = 'admin'
+        super(User, self).save(*args, **kwargs)
+    
     @property
     def full_name(self):
         return self.get_full_name()
+
+class SocialAccount(models.Model):
+    class ProviderTypes(models.TextChoices):
+        GOOGLE = "google"
+        FACEBOOK = "facebook"
+    
+    user = models.ForeignKey("User", on_delete=models.CASCADE, related_name="social_account", null=True)
+    social_account = models.CharField(max_length=50, choices=ProviderTypes.choices)

@@ -1,4 +1,5 @@
 # Byte-compiled / optimized / DLL files
+.idea
 __pycache__/
 *.py[cod]
 *$py.class
@@ -115,7 +116,7 @@ __pypackages__/
 # Celery stuff
 celerybeat-schedule
 celerybeat.pid
-
+Makefile
 # SageMath parsed files
 *.sage.py
 
@@ -127,7 +128,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-
+media
 # Spyder project settings
 .spyderproject
 .spyproject
