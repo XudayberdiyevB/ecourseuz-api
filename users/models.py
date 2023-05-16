@@ -4,19 +4,19 @@ from django.db import models
 from .managers import CustomUserManager
 
 
-class Role(models.Model):
+class UserTypes(models.Model):
     STUDENT = 1
     TEACHER = 2
     SUPERVISOR = 3
     ADMIN = 4
-    ROLE_CHOICES = (
+    TYPE_CHOICES = (
         (STUDENT, 'student'),
         (TEACHER, 'teacher'),
         (SUPERVISOR, 'supervisor'),
         (ADMIN, 'admin'),
     )
 
-    id = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, primary_key=True)
+    id = models.PositiveSmallIntegerField(choices=TYPE_CHOICES, primary_key=True)
 
     def __str__(self):
         return self.get_id_display()
@@ -31,7 +31,7 @@ class User(AbstractUser):
     address = models.CharField(max_length=256, null=True)
     birth_date = models.DateField(null=True)
     age = models.IntegerField(null=True)
-    roles = models.ManyToManyField(Role, related_name='role')
+    roles = models.ManyToManyField(UserTypes, related_name='user_types')
 
     objects = CustomUserManager()
 

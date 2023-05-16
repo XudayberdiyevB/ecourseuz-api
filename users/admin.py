@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import User, Role
+from .models import User, UserTypes
 
 
 # Register your models here.
@@ -10,4 +10,4 @@ class UserAdmin(admin.ModelAdmin):
     ordering = ['-date_joined']
 
 
-admin.site.register(Role)
+admin.site.register(UserTypes)
