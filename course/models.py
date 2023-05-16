@@ -15,13 +15,8 @@ class Course(models.Model):
         on_delete=models.CASCADE,
         related_name='user_course'
     )
-    category = models.ForeignKey(
-        None,
-        on_delete=models.CASCADE,
-        related_name='category_course'
-    )
-    image = models.ImageField(upload_to='/course_picture')
-    video = models.FileField(upload_to='/course_video')
+    image = models.ImageField(upload_to='course_picture/', blank=True, null=True)
+    video = models.FileField(upload_to='course_video/')
     created_add = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
