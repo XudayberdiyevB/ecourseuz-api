@@ -15,4 +15,5 @@ class Category(models.Model):
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         if self.name.upper():
             self.slug = slugify(self.name.lower())
+        self.slug = slugify(self.name)
         return super().save(force_insert, force_update, using, update_fields)
