@@ -24,15 +24,23 @@ class User(AbstractUser):
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
-
+    
     def __str__(self):
         return self.email
-
-    @property
-    def full_name(self):
-        return self.get_full_name()
-
+      
     def save(self, *args, **kwargs):
         if self.is_superuser == True:
             self.type = 'admin'
         super(User, self).save(*args, **kwargs)
+    
+    @property
+    def full_name(self):
+        return self.get_full_name()
+
+class SocialAccount(models.Model):
+    class ProviderTypes(models.TextChoices):
+        GOOGLE = "google"
+        FACEBOOK = "facebook"
+    
+    user = models.ForeignKey("User", on_delete=models.CASCADE, related_name="social_account", null=True)
+    social_account = models.CharField(max_length=50, choices=ProviderTypes.choices)
