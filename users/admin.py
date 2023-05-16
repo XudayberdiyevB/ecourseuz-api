@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import User
+from .models import User, Role
 
 
 # Register your models here.
@@ -8,3 +8,6 @@ from .models import User
 class UserAdmin(admin.ModelAdmin):
     list_display = ['email', 'first_name', 'last_name']
     ordering = ['-date_joined']
+
+
+admin.site.register(Role)
