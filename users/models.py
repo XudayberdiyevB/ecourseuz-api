@@ -35,5 +35,5 @@ class SocialAccount(models.Model):
     
     user = models.ForeignKey("User", on_delete=models.CASCADE, related_name="social_account", null=True)
     social_account = models.CharField(max_length=50, choices=ProviderTypes.choices)
-    url = models.CharField(max_length=255)
-    icon = models.CharField(max_length=255, null=True)
+
+
