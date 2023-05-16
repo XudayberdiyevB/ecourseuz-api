@@ -27,3 +27,24 @@ class Course(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class CourseContent(models.Model):
+    CHOICE_PUBLIC = [
+        ('0', False),
+        ('1', True)
+    ]
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    video = models.FileField(upload_to='videos/')
+    is_public = models.CharField(max_length=1, choices=CHOICE_PUBLIC)
+    time = models.TimeField(auto_now_add=True)
+    course_id = models.ForeignKey(
+        Course,
+        on_delete=models.CASCADE,
+        related_name='course_content'
+    )
+    position = models.CharField()
+
+    def __str__(self):
+        return self.title
