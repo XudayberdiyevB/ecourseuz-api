@@ -4,8 +4,8 @@ from django.utils.text import slugify
 
 class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
-    slug = models.SlugField(max_length=255, unique=True,blank=True)
-    description = models.TextField()
+    slug = models.SlugField(max_length=255, unique=True, blank=True)
+    description = models.TextField(null=True)
     position = models.PositiveSmallIntegerField(default=1)
     parent = models.ForeignKey("self", on_delete=models.CASCADE, related_name="children", null=True, blank=True)
 
