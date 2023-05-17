@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from common.models import Blog, SocialMedia
+
 from common.models.category import Category
 
 

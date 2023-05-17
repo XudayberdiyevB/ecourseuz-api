@@ -1,13 +1,12 @@
 from django.db import models
 
-from common.models import Category
+from common.models import Category, BaseModel
 
 
-class ApplicationForm(models.Model):
+class ApplicationForm(BaseModel):
     name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='application')
-    created_at = models.DateTimeField(auto_now_add=True)
     is_answer = models.BooleanField(default=False)
 
     def __str__(self):
