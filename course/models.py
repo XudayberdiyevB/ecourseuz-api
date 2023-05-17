@@ -1,48 +1,54 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 from users.models import User
 from common.models.category import Category
+from common.models import BaseModel
 
 
-class Course(models.Model):
+class Course(BaseModel):
+    class CourseLevels(models.TextChoices):
+        BEGINNER = "beginner", _("Beginner")
+        INTERMEDIATE = "intermediate", _("Intermediate")
+        ADVANCED = "advanced", _("Advanced")
+
     name = models.CharField(max_length=250)
     slug = models.SlugField()
     desc = models.TextField()
     price = models.PositiveIntegerField()
     discount = models.PositiveIntegerField()
-    level = models.CharField(max_length=100)
+    level = models.CharField(max_length=32, choices=CourseLevels.choices, default=CourseLevels.BEGINNER)
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='user_course'
+        related_name='author'
     )
     category = models.ForeignKey(
         Category,
         on_delete=models.CASCADE,
-        related_name='category_course'
+        related_name='category'
     )
     image = models.ImageField(upload_to='course_picture/', blank=True, null=True)
-    video = models.FileField(upload_to='course_video/')
-    created_add = models.DateTimeField(auto_now_add=True)
+    video = models.FileField(upload_to='course_video/', blank=True, null=True)
 
     def __str__(self):
         return self.name
 
 
-class CourseContent(models.Model):
+class CourseContent(BaseModel):
     CHOICES_PUBLIC = [
-        ('0', False),
-        ('1', True)
+        ('YES', False),
+        ('NO', True)
     ]
     title = models.CharField(max_length=100)
     description = models.TextField()
     video = models.FileField(upload_to='videos/')
     is_public = models.BooleanField(choices=CHOICES_PUBLIC)
     time = models.TimeField(auto_now_add=True)
-    course_id = models.ForeignKey(
+    course = models.ForeignKey(
         Course,
         on_delete=models.CASCADE,
-        related_name='course_content'
+        related_name='course'
     )
     position = models.IntegerField()
 
@@ -51,8 +57,8 @@ class CourseContent(models.Model):
 
 
 class ApplyStatus(models.Choices):
-    UNPAID = 'Unpaid', "unpaid"
-    PAID = 'Paid', "paid"
+    UNPAID = 'unpaid', _("Unpaid")
+    PAID = 'paid', _("Paid")
 
 
 class Rate(models.Choices):
@@ -63,7 +69,7 @@ class Rate(models.Choices):
     CHOICE_FIVE = 5
 
 
-class CourseApply(models.Model):
+class CourseApply(BaseModel):
     course = models.ForeignKey(
         Course,
         on_delete=models.CASCADE,
@@ -75,13 +81,12 @@ class CourseApply(models.Model):
         related_name="user"
     )
     status = models.CharField(max_length=20, choices=ApplyStatus.choices)
-    applied_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return str(self.user)
 
 
-class Review(models.Model):
+class Review(BaseModel):
     user = models.ForeignKey(
         "users.User",
         on_delete=models.CASCADE,
@@ -94,7 +99,6 @@ class Review(models.Model):
     )
     rate = models.IntegerField(choices=Rate.choices)
     comment = models.CharField(max_length=400)
-    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return str(self.user)
