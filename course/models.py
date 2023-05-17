@@ -98,3 +98,21 @@ class Review(models.Model):
 
     def __str__(self):
         return str(self.user)
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True)
+
+
+class CourseTag(models.Model):
+    course = models.ForeignKey(
+        Course,
+        on_delete=models.CASCADE,
+        related_name='course'
+    )
+    tag = models.ForeignKey(
+        Tag,
+        on_delete=models.CASCADE,
+        related_name='tag'
+    )
