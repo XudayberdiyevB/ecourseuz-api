@@ -37,14 +37,14 @@ class CourseContent(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     video = models.FileField(upload_to='videos/')
-    is_public = models.CharField(max_length=1, choices=CHOICES_PUBLIC)
+    is_public = models.BooleanField(choices=CHOICES_PUBLIC)
     time = models.TimeField(auto_now_add=True)
     course_id = models.ForeignKey(
         Course,
         on_delete=models.CASCADE,
         related_name='course_content'
     )
-    position = models.CharField()
+    position = models.IntegerField()
 
     def __str__(self):
         return self.title
