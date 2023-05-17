@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from common.models import Blog, SocialMedia, ContactUs, AboutUs, ApplicationForm
-from common.models.category import Category
+from common.models import Blog, Category, SocialMedia, ContactUs, AboutUs, ApplicationForm
 
 
 class CategoryAdmin(admin.ModelAdmin):

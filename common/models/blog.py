@@ -1,11 +1,11 @@
 from django.db import models
 from django.utils.text import slugify
 
-from common.models.base import BaseTimeModel
+from common.models import BaseTimeModel
 from users.models import User
 
 
-class Blog(BaseTimeModel):
+class Blog(BaseModel):
     title = models.CharField(max_length=255, null=True, unique=True)
     slug = models.SlugField(unique=True, blank=True)
     description = models.TextField(null=True)
