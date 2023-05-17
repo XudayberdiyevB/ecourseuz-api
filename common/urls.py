@@ -1,8 +1,6 @@
 from django.urls import path
 
-from common.views import ApplicationFormView
-from common.views.category_views import CategoryListApiViews
-
+from common.views import ApplicationFormView, CategoryListApiViews
 
 urlpatterns = [
     path('application-form/', ApplicationFormView.as_view(), name='application-form'),
