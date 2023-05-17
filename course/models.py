@@ -21,12 +21,12 @@ class Course(BaseModel):
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='author'
+        related_name='courses_authored'
     )
     category = models.ForeignKey(
         Category,
         on_delete=models.CASCADE,
-        related_name='category'
+        related_name='courses'
     )
     image = models.ImageField(upload_to='course_picture/', blank=True, null=True)
     video = models.FileField(upload_to='course_video/', blank=True, null=True)
@@ -37,8 +37,8 @@ class Course(BaseModel):
 
 class CourseContent(BaseModel):
     CHOICES_PUBLIC = [
-        ('YES', False),
-        ('NO', True)
+        (True, 'YES'),
+        (False, 'NO')
     ]
     title = models.CharField(max_length=100)
     description = models.TextField()
@@ -48,7 +48,7 @@ class CourseContent(BaseModel):
     course = models.ForeignKey(
         Course,
         on_delete=models.CASCADE,
-        related_name='course'
+        related_name='contents'
     )
     position = models.IntegerField()
 
@@ -57,8 +57,8 @@ class CourseContent(BaseModel):
 
 
 class ApplyStatus(models.Choices):
-    UNPAID = 'unpaid', _("Unpaid")
-    PAID = 'paid', _("Paid")
+    UNPAID = _("Unpaid")
+    PAID = _("Paid")
 
 
 class Rate(models.Choices):
@@ -73,12 +73,12 @@ class CourseApply(BaseModel):
     course = models.ForeignKey(
         Course,
         on_delete=models.CASCADE,
-        related_name="course"
+        related_name="applies"
     )
     user = models.ForeignKey(
         "users.User",
         on_delete=models.CASCADE,
-        related_name="user"
+        related_name="course_applies"
     )
     status = models.CharField(max_length=20, choices=ApplyStatus.choices)
 
@@ -90,12 +90,12 @@ class Review(BaseModel):
     user = models.ForeignKey(
         "users.User",
         on_delete=models.CASCADE,
-        related_name="user"
+        related_name="reviews"
     )
     course = models.ForeignKey(
         Course,
         on_delete=models.CASCADE,
-        related_name="course"
+        related_name="reviews"
     )
     rate = models.IntegerField(choices=Rate.choices)
     comment = models.CharField(max_length=400)
