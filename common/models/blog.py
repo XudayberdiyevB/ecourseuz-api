@@ -1,16 +1,16 @@
 from django.db import models
 from django.utils.text import slugify
 
+from common.models.base import BaseTimeModel
 from users.models import User
 
 
-class Blog(models.Model):
+class Blog(BaseTimeModel):
     title = models.CharField(max_length=255, null=True, unique=True)
     slug = models.SlugField(unique=True, blank=True)
     description = models.TextField(null=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog')
-    created_at = models.DateTimeField(auto_now_add=True)
-    views_count = models.IntegerField(default=0)
+    views_count = models.BigIntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -20,9 +20,4 @@ class Blog(models.Model):
         return super().save(force_insert, force_update, using, update_fields)
 
 
-class TimestampModel(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
-    class Meta:
-        abstract = True
