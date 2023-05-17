@@ -1,7 +1,9 @@
 from django.db import models
 
+from common.models import BaseModel
 
-class Banner(models.Model):
+
+class Banner(BaseModel):
     title = models.CharField(max_length=255)
     description = models.TextField()
     image = models.ImageField(upload_to='banner/images')
