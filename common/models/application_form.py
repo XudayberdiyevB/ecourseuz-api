@@ -1,6 +1,7 @@
 from django.db import models
 
-from common.models import Category, BaseModel
+from common.models import Category
+from common.models.base import BaseModel
 
 
 class ApplicationForm(BaseModel):
