@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import generics
+from rest_framework import generics, status
 
 from course.models import CourseApply, CourseContent
 from course.serializers import CourseApplySerializer, CourseContentSerializer
@@ -26,6 +26,7 @@ class CourseApplyView(APIView):
 
 
 class CourseApplyDetailView(CourseApplyView):
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         course_apply = get_object_or_404(CourseApply, id=kwargs.get('pk'))
@@ -42,15 +43,39 @@ class CourseApplyDetailView(CourseApplyView):
         return Response(serializer.data)
 
 
-class CourseContentApiView(generics.ListCreateAPIView):
-    queryset = CourseContent.objects.all()
-    serializer_class = CourseContentSerializer
+class CourseContentApiView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        course_content = CourseContent.objects.all()
+        serializer = CourseContentSerializer(course_content, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, *args, **kwargs):
+        serializer = CourseContentSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(status.HTTP_400_BAD_REQUEST)
 
 
-class CourseContentDetilView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = CourseContent.objects.all()
+class CourseContentDetilView(APIView):
+    permission_classes = [IsAuthenticated]
 
-    def get_serializer_class(self):
-        if self.request.method == 'POST':
-            return CourseContentSerializer
-        return CourseContentSerializer
+    def get(self, request, *args, **kwargs):
+        course_content = get_object_or_404(CourseContent, id=kwargs.get('pk'))
+        serializer = CourseContentSerializer(course_content)
+        return Response(serializer.data)
+
+    def post(self, request, *args, **kwargs):
+        queryset = get_object_or_404(CourseContent, id=kwargs.get('pk'))
+        serializer = CourseContentSerializer(instance=queryset, data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, *args, **kwargs):
+        queryset = get_object_or_404(CourseContent, id=kwargs.get('pk'))
+        queryset.delete()
+        return Response(status=status.HTTP_200_OK)
