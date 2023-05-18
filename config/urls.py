@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('common.urls'), name='common'),
     path('user/', include('users.urls'), name='user'),
+    path('course/', include('course.urls'), name='course'),
 ]
 swagger = [
     re_path(r'api(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
