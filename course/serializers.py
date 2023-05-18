@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import CourseApply
 
 
-class CourseApplySerializers(serializers.ModelSerializer):
+class CourseApplySerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
 
     class Meta:
