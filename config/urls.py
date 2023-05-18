@@ -17,10 +17,23 @@ schema_view = get_schema_view(
     permission_classes=[permissions.AllowAny],
 )
 
+schema_view = get_schema_view(
+    openapi.Info(
+        title="e-course.uz API",
+        default_version='v1',
+        description="API",
+        terms_of_service="https://www.google.com/policies/terms/",
+        contact=openapi.Contact(email="contact@p10.com"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=[permissions.AllowAny],
+)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
-    # path('dj-rest-auth/', include('dj_rest_auth.urls')),
+    path('', include('common.urls'), name='common'),
+    path('course/', include('course.urls'), name='course'),
 
 ]
 
