@@ -1,9 +1,23 @@
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, DjangoModelPermissionsOrAnonReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from users.serializers import UserDetailSerializer, UserSerializer
+from users.serializers import UserDetailSerializer, UserSerializer, RegisterSerializer
+from .models import User
+
+
+class RegisterView(APIView):
+    queryset = User.objects.all()
+    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+
+    @swagger_auto_schema(request_body=RegisterSerializer)
+    def post(self, request, *args, **kwargs):
+        serializer = RegisterSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 class ProfileView(APIView):
