@@ -17,7 +17,7 @@ class User(AbstractUser):
     profile_picture = models.ImageField(upload_to='profile_picture/', null=True, blank=True)
     address = models.CharField(max_length=256, null=True)
     birth_date = models.DateField(null=True)
-    age = models.IntegerField(null=True)
+    age = models.IntegerField(null=True, blank=True)
     type = models.CharField(max_length=50, choices=UserTypes.choices, default=UserTypes.STUDENT)
 
     objects = CustomUserManager()
