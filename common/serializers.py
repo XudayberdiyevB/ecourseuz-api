@@ -6,7 +6,7 @@ from common.models import ApplicationForm, Category, ContactUs, ContactForm
 class ApplicationFormSerializer(serializers.ModelSerializer):
     class Meta:
         model = ApplicationForm
-        fields = ['course', 'name', 'email', 'category']
+        fields = ['course', 'name', 'email']
 
 
 class CategoryListSerializers(serializers.ModelSerializer):
