@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 
-from common.models.base import BaseModel
+from . import BaseModel
 from users.models import User
 
 
@@ -18,6 +18,5 @@ class Blog(BaseModel):
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         self.slug = slugify(self.title)
         return super().save(force_insert, force_update, using, update_fields)
-
 
 
