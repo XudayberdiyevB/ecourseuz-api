@@ -9,13 +9,13 @@ from course.serializers import CourseApplySerializer
 
 class CourseApplyView(APIView):
     permission_classes = [IsAuthenticated]
-
+    
     def get(self, request, *args, **kwargs):
         course_applies = CourseApply.objects.all()
         serializer = CourseApplySerializer(course_applies, many=True)
 
         return Response(serializer.data)
-
+    
     def post(self, request, *args, **kwargs):
         serializer = CourseApplySerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -31,7 +31,7 @@ class CourseApplyDetailView(CourseApplyView):
         serializer = CourseApplySerializer(course_apply)
 
         return Response(serializer.data)
-
+    
     def put(self, request, *args, **kwargs):
         course_apply = get_object_or_404(CourseApply, id=kwargs.get('pk'))
         serializer = CourseApplySerializer(instance=course_apply, data=request.data)

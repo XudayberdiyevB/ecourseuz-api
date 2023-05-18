@@ -169,3 +169,5 @@ cython_debug/
 /.idea/vcs.xml
 Pipfile
 Pipfile.lock
+Pipfile
+Pipfile.lock
