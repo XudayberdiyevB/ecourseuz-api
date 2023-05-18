@@ -23,4 +23,3 @@ admin.site.register(ContactUs)
 admin.site.register(ContactForm)
 admin.site.register(AboutUs)
 admin.site.register(ApplicationForm)
-
