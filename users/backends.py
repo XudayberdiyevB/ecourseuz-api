@@ -10,7 +10,7 @@ class CustomModelBackend(ModelBackend):
     """
 
     def authenticate(self, request, username=None, password=None, **kwargs):
-        email = kwargs.get(UserModel.USERNAME_FIELD)
+        email = kwargs.get("email")
         if username is None:
             username = email
         if username is None or password is None:
