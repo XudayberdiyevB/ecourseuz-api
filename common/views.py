@@ -1,12 +1,18 @@
+from django.shortcuts import render
 from django.core.mail import send_mail
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics
 from rest_framework.response import Response
 
-from common.models import Category, ContactUs, ContactForm, ApplicationForm, AboutUs, Blog
+from common.models import Category, ContactUs, ContactForm, ApplicationForm, AboutUs, Blog, Banner
 from config import settings
 from course.models import Course
-from .serializers import ApplicationFormSerializer, AboutUsSerializer, BlogSerializer, CategoryListSerializers, ContactUsListSerializers, ContactFormListSerializers
+from .serializers import ApplicationFormSerializer, AboutUsSerializer, BlogSerializer, CategoryListSerializers, ContactUsListSerializers, ContactFormListSerializers, BannerListSerializers
+
+
+class BannerListApiView(generics.ListAPIView):
+    queryset = Banner.objects.all()
+    serializer_class = BannerListSerializers
 
 
 class CategoryListApiViews(generics.ListAPIView):

@@ -1,6 +1,13 @@
 from rest_framework import serializers
 
-from common.models import ApplicationForm, AboutUs, Category, ContactUs, ContactForm, Blog
+from common.models import ApplicationForm, AboutUs, Category, ContactUs, ContactForm, Blog, Banner
+
+
+class BannerListSerializers(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=False)
+
+    class Meta:
+        model = Banner
 
 
 class ApplicationFormSerializer(serializers.ModelSerializer):
@@ -39,7 +46,6 @@ class ContactFormListSerializers(serializers.ModelSerializer):
     class Meta:
         model = ContactForm
         fields = '__all__'
-
 
 
 class BlogSerializer(serializers.ModelSerializer):
