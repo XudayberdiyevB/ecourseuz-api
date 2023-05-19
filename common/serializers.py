@@ -34,26 +34,24 @@ class AboutUsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AboutUs
-        fields = '__all__'
+        fields = ['title', 'description', 'image']
 
 
 class ContactUsListSerializers(serializers.ModelSerializer):
-    id = serializers.IntegerField(read_only=False)
 
     class Meta:
         model = ContactUs
-        fields = '__all__'
+        fields = ['country', 'city', 'street', 'location', 'email', 'phone']
 
 
 class ContactFormListSerializers(serializers.ModelSerializer):
-    id = serializers.IntegerField(read_only=False)
 
     class Meta:
         model = ContactForm
-        fields = '__all__'
+        fields = ['name', 'phone', 'email', 'message']
 
 
 class BlogSerializer(serializers.ModelSerializer):
     class Meta:
         model = Blog
-        fields = '__all__'
+        fields = ['title', 'slug', 'description', 'author', 'views_count']
