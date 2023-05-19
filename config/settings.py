@@ -43,17 +43,14 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'rest_framework',
-    'drf_yasg',
-    'rest_framework_simplejwt',
     'django.contrib.staticfiles',
     'drf_yasg',
     'rest_framework',
     'rest_framework_simplejwt',
     # My Apps
-    'common',
-    'users',
-    'course',
+    'common.apps.CommonConfig',
+    'users.apps.UsersConfig',
+    'course.apps.CourseConfig',
 ]
 
 MIDDLEWARE = [
@@ -91,7 +88,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': env("DB_NAME"),
         'USER': env("DB_USER"),
         'PASSWORD': env("DB_PASSWORD"),
