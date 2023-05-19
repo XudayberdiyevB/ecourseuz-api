@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # My Apps
     'common',
     'course',
+    'rest_framework',
     'users'
 ]
 
