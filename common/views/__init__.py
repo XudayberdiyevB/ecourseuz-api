@@ -4,3 +4,4 @@ from .contact import *
 from .application_from_views import *
 from .socialmedia import *
 from .blog import *
+from .banner import *
