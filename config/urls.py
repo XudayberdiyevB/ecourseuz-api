@@ -41,7 +41,6 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('', include('common.urls'), name='common'),
     path('course/', include('course.urls'), name='course'),
-
 ]
 
 swagger_urls = [

@@ -1,9 +1,8 @@
 from django.urls import path
 
-from common.views import ApplicationFormView, AboutUsListApiViews, BannerListApiView, CategoryListApiViews, ContactUsListApiView, ContactFormListApiView, BlogList, BlogDetail
-
-urlpatterns = [
-]
+from common.views import (
+  ApplicationFormView, AboutUsListApiViews, BannerListApiView, CategoryListApiViews, ContactUsListApiView, ContactFormListApiView, BlogList, BlogDetail, SocialMediaList, SocialMediaDetail
+)
 
 urlpatterns = [
     path('blogs/', BlogList.as_view(), name='blog-list'),
@@ -13,5 +12,7 @@ urlpatterns = [
     path('category/', CategoryListApiViews.as_view(), name='category-list'),
     path('about-us/',AboutUsListApiViews.as_view(), name='about-us')
     path('contact/', ContactUsListApiView.as_view(), name='contact-us'),
-    path('contact-form/', ContactFormListApiView.as_view(), name='contact-form')
+    path('contact-form/', ContactFormListApiView.as_view(), name='contact-form'),
+    path('', SocialMediaList.as_view(), name='social-media-list'),
+    path('social-media/<int:pk>/', SocialMediaDetail.as_view(), name='social-media-detail'),
 ]

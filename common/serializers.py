@@ -1,8 +1,13 @@
 from rest_framework import serializers
 
-from common.models import ApplicationForm, AboutUs, Category, ContactUs, ContactForm, Blog, Banner
+from common.models import ApplicationForm, AboutUs, Category, ContactUs, ContactForm, Blog, Banner, SocialMedia
 
 
+class SocialMediaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SocialMedia
+
+        
 class BannerListSerializers(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=False)
 

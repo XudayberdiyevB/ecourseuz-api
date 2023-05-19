@@ -4,10 +4,20 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics
 from rest_framework.response import Response
 
-from common.models import Category, ContactUs, ContactForm, ApplicationForm, AboutUs, Blog, Banner
+from common.models import Category, ContactUs, ContactForm, ApplicationForm, AboutUs, Blog, Banner, SocialMedia
 from config import settings
 from course.models import Course
-from .serializers import ApplicationFormSerializer, AboutUsSerializer, BlogSerializer, CategoryListSerializers, ContactUsListSerializers, ContactFormListSerializers, BannerListSerializers
+from .serializers import ApplicationFormSerializer, AboutUsSerializer, BlogSerializer, SocialMediaSerializer, CategoryListSerializers, ContactUsListSerializers, ContactFormListSerializers, BannerListSerializers
+
+
+class SocialMediaList(generics.ListCreateAPIView):
+    queryset = SocialMedia.objects.all()
+    serializer_class = SocialMediaSerializer
+
+
+class SocialMediaDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = SocialMedia.objects.all()
+    serializer_class = SocialMediaSerializer
 
 
 class BannerListApiView(generics.ListAPIView):
