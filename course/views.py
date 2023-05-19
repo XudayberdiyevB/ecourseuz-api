@@ -4,8 +4,16 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics, status
 
-from course.models import CourseApply, CourseContent
-from course.serializers import CourseApplySerializer, CourseContentSerializer
+from course.models import Course, CourseApply, CourseContent
+from course.serializers import CourseSerializer, CourseApplySerializer, CourseContentSerializer
+
+
+class CourseApiView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        course_applies = Course.objects.all()
+        serializer = CourseSerializer(course_applies, many=True)
 
 
 class CourseApplyView(APIView):
@@ -18,6 +26,7 @@ class CourseApplyView(APIView):
         return Response(serializer.data)
 
     def post(self, request, *args, **kwargs):
+        serializer = CourseSerializer(data=request.data)
         serializer = CourseApplySerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
