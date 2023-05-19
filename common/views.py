@@ -3,17 +3,20 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics
 from rest_framework.response import Response
 
-from common.models import Category, ContactUs, ContactForm, Blog
-from common.models.application_form import ApplicationForm
+from common.models import Category, ContactUs, ContactForm, ApplicationForm, AboutUs, Blog
 from config import settings
 from course.models import Course
-from .serializers import ApplicationFormSerializer, CategoryListSerializers, ContactUsListSerializers, \
-    ContactFormListSerializers, BlogSerializer
+from .serializers import ApplicationFormSerializer, AboutUsSerializer, BlogSerializer, CategoryListSerializers, ContactUsListSerializers, ContactFormListSerializers
 
 
 class CategoryListApiViews(generics.ListAPIView):
     queryset = Category.objects.all()
     serializer_class = CategoryListSerializers
+
+
+class AboutUsListApiViews(generics.ListAPIView):
+    queryset = AboutUs.objects.all()
+    serializer_class = AboutUsSerializer    
 
 
 class ApplicationFormView(generics.CreateAPIView):
@@ -26,7 +29,6 @@ class ApplicationFormView(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         email = serializer.validated_data.get("email")
         course_id = serializer.validated_data.get("course").id
-        print(course_id)
         course = Course.objects.get(id=course_id)
         message = f"course price: {course.price}\n" \
                   f"Level: {course.level}\n" \
