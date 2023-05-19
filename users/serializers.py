@@ -1,11 +1,12 @@
 from django.contrib.auth import authenticate
-from rest_framework import serializers, exceptions
-from rest_framework_simplejwt.serializers import TokenObtainSerializer, PasswordField
-from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework_simplejwt.settings import api_settings
 from django.contrib.auth.models import update_last_login
 from django.utils.translation import gettext_lazy as _
+from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
+from rest_framework_simplejwt.serializers import PasswordField
+from rest_framework_simplejwt.settings import api_settings
+from rest_framework_simplejwt.tokens import RefreshToken
+
 from .models import User
 
 
@@ -44,8 +45,6 @@ class CustomTokenObtainPairSerializer(serializers.Serializer):
             authenticate_kwargs["request"] = self.context["request"]
         except KeyError:
             pass
-
-        print(authenticate_kwargs)
 
         user = authenticate(**authenticate_kwargs)
 
