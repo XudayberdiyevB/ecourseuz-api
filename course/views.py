@@ -51,7 +51,7 @@ class CourseContentApiView(APIView):
         serializer = CourseContentSerializer(course_content, many=True)
         return Response(serializer.data)
 
-    def put(self, request):
+    def post(self, request):
         serializer = CourseContentSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
@@ -67,7 +67,7 @@ class CourseContentDetilView(APIView):
         serializer = CourseContentSerializer(course_content)
         return Response(serializer.data)
 
-    def post(self, request, *args, **kwargs):
+    def put(self, request, *args, **kwargs):
         queryset = get_object_or_404(CourseContent, id=kwargs.get('pk'))
         serializer = CourseContentSerializer(instance=queryset, data=request.data)
         if serializer.is_valid(raise_exception=True):
