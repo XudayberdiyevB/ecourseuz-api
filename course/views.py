@@ -46,12 +46,12 @@ class CourseApplyDetailView(CourseApplyView):
 class CourseContentApiView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         course_content = CourseContent.objects.all()
         serializer = CourseContentSerializer(course_content, many=True)
         return Response(serializer.data)
 
-    def post(self, request, *args, **kwargs):
+    def put(self, request):
         serializer = CourseContentSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
@@ -74,8 +74,3 @@ class CourseContentDetilView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, *args, **kwargs):
-        queryset = get_object_or_404(CourseContent, id=kwargs.get('pk'))
-        queryset.delete()
-        return Response(status=status.HTTP_200_OK)
