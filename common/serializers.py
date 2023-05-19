@@ -6,13 +6,13 @@ from common.models import ApplicationForm, AboutUs, Category, ContactUs, Contact
 class SocialMediaSerializer(serializers.ModelSerializer):
     class Meta:
         model = SocialMedia
+        fields = ("type", "name", "urls")
 
-        
+
 class BannerListSerializers(serializers.ModelSerializer):
-    id = serializers.IntegerField(read_only=False)
-
     class Meta:
         model = Banner
+        fields = ("title", "description", "image")
 
 
 class ApplicationFormSerializer(serializers.ModelSerializer):

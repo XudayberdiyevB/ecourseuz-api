@@ -22,7 +22,7 @@ env = environ.Env(
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-environ.Env.read_env(os.path.join(BASE_DIR, '.env.example'))
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -44,12 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'rest_framework',
-    'drf_yasg',
     'rest_framework_simplejwt',
+    'drf_yasg',
     'django.contrib.staticfiles',
-    'drf_yasg',
-    'rest_framework',
-    'rest_framework_simplejwt',
     # My Apps
     'common',
     'users',
@@ -91,7 +88,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': env("DB_NAME"),
         'USER': env("DB_USER"),
         'PASSWORD': env("DB_PASSWORD"),
@@ -148,10 +145,8 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissions'
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
 
@@ -167,3 +162,5 @@ EMAIL_PORT = env("EMAIL_PORT")
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = True
+
+AUTHENTICATION_BACKENDS = ["users.backends.CustomModelBackend"]
