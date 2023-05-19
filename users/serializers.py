@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import update_last_login
 from django.utils.translation import gettext_lazy as _
-from rest_framework import serializers
+from rest_framework import serializers, exceptions
 from rest_framework.exceptions import ValidationError
 from rest_framework_simplejwt.serializers import PasswordField
 from rest_framework_simplejwt.settings import api_settings
@@ -36,23 +36,16 @@ class CustomTokenObtainPairSerializer(serializers.Serializer):
         username = attrs.get("username")
         if email and username:
             raise ValidationError("Please send email or username.")
-        authenticate_kwargs = {
-            "email": attrs.get("email"),
-            "username": attrs.get("username"),
-            "password": attrs.get("password"),
-        }
-        try:
-            authenticate_kwargs["request"] = self.context["request"]
-        except KeyError:
-            pass
 
-        user = authenticate(**authenticate_kwargs)
+        user = authenticate(
+            request=self.context.get("request"), username=username, email=email, password=attrs.get("password")
+        )
 
-        # if not api_settings.USER_AUTHENTICATION_RULE(user):
-        #     raise exceptions.AuthenticationFailed(
-        #         self.error_messages["no_active_account"],
-        #         "no_active_account",
-        #     )
+        if not api_settings.USER_AUTHENTICATION_RULE(user):
+            raise exceptions.AuthenticationFailed(
+                self.error_messages["no_active_account"],
+                "no_active_account",
+            )
 
         refresh = self.get_token(user)
         data["refresh"] = str(refresh)
