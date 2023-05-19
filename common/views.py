@@ -12,7 +12,7 @@ from .serializers import ApplicationFormSerializer, CategoryListSerializers, Con
 
 class CategoryListApiViews(generics.ListAPIView):
     queryset = Category.objects.all()
-    serializer_class = CategoryListSerializers
+    serializer_class = CategoryListSerializerse
 
 
 class ApplicationFormView(generics.CreateAPIView):
