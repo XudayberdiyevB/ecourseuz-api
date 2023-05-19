@@ -2,5 +2,8 @@ django==4.2.1
 psycopg2==2.9.6
 django-environ==0.10.0
 Pillow==9.5.0
-djangorestframework==3.14.0
+djangorestframework=3.14.0
+djangorestframework-simplejwt==5.2.2
+django-environ==0.10.0
 drf-yasg==1.21.5
+dj-rest-auth==4.0.0
