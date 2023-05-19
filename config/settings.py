@@ -43,10 +43,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Installed apps
+    'rest_framework',
     # My Apps
     'common',
     'course',
-    'rest_framework',
+
     'users'
 ]
 
