@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework import permissions
@@ -17,11 +19,16 @@ schema_view = get_schema_view(
     permission_classes=[permissions.AllowAny],
 )
 
+# my imports
+
+from django.contrib import admin
+from django.urls import path, include
+
 schema_view = get_schema_view(
     openapi.Info(
-        title="e-course.uz API",
+        title="P10 Api",
         default_version='v1',
-        description="API",
+        description="P10",
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="contact@p10.com"),
         license=openapi.License(name="BSD License"),
@@ -44,3 +51,6 @@ swagger_urls = [
 ]
 
 urlpatterns += swagger_urls
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
