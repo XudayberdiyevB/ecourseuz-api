@@ -42,11 +42,14 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'rest_framework',
+    'drf_yasg',
+    'rest_framework_simplejwt',
     'django.contrib.staticfiles',
     # My Apps
     'common',
     'courses',
-    'users'
+    'users',
 ]
 
 MIDDLEWARE = [
