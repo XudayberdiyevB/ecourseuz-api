@@ -3,16 +3,17 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics
 from rest_framework.response import Response
 
-from common.models import Category, ContactUs, ContactForm
+from common.models import Category, ContactUs, ContactForm, Blog
 from common.models.application_form import ApplicationForm
 from config import settings
 from course.models import Course
-from .serializers import ApplicationFormSerializer, CategoryListSerializers, ContactUsListSerializers, ContactFormListSerializers
+from .serializers import ApplicationFormSerializer, CategoryListSerializers, ContactUsListSerializers, \
+    ContactFormListSerializers, BlogSerializer
 
 
 class CategoryListApiViews(generics.ListAPIView):
     queryset = Category.objects.all()
-    serializer_class = CategoryListSerializerse
+    serializer_class = CategoryListSerializers
 
 
 class ApplicationFormView(generics.CreateAPIView):
@@ -36,6 +37,7 @@ class ApplicationFormView(generics.CreateAPIView):
         )
         return Response({"detail": "Successfully sent email verification code."})
 
+
 class ContactUsListApiView(generics.ListAPIView):
     queryset = ContactUs.objects.all()
     serializer_class = ContactUsListSerializers
@@ -44,3 +46,13 @@ class ContactUsListApiView(generics.ListAPIView):
 class ContactFormListApiView(generics.ListAPIView):
     queryset = ContactForm.objects.all()
     serializer_class = ContactFormListSerializers
+
+
+class BlogList(generics.ListCreateAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+
+
+class BlogDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer

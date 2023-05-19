@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from common.models import ApplicationForm, Category, ContactUs, ContactForm
+from common.models import ApplicationForm, Category, ContactUs, ContactForm, Blog
 
 
 class ApplicationFormSerializer(serializers.ModelSerializer):
@@ -30,4 +30,11 @@ class ContactFormListSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = ContactForm
+        fields = '__all__'
+
+
+
+class BlogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Blog
         fields = '__all__'
