@@ -58,9 +58,9 @@ class SendEmailVerificationCodeView(APIView):
         verification_code.expired_at = verification_code.last_sent_time + timedelta(seconds=30)
         verification_code.save(update_fields=["expired_at"])
         subject = "Email registration"
-        # message = f"Email tasdiqlash kodingiz {code}"
+        # message = f"Your email verification code {code}"
         verification_email_url = reverse("check-email")
-        message = f"Email tasdiqlash uchun bosing:\n " \
+        message = f"Click to confirm email:\n " \
                   f"http://localhost:8000{verification_email_url}?email={email}&code={code}"
         send_mail(
             subject, message, from_email=settings.EMAIL_HOST_USER, recipient_list=[email]
