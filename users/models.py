@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 
 from .managers import CustomUserManager
@@ -10,8 +10,8 @@ class User(AbstractUser):
         TEACHER = 'teacher'
         SUPERVISOR = 'supervisor'
 
-    username = models.CharField(max_length=32, unique=True, null=True)
-    email = models.EmailField(unique=True)
+    username = models.CharField(max_length=32, unique=True)
+    email = models.EmailField(unique=True, null=True)
     phone = models.CharField(max_length=15, unique=True, null=True)
     job = models.CharField(max_length=129, null=True)
     profile_picture = models.ImageField(upload_to='profile_picture/', null=True, blank=True)
