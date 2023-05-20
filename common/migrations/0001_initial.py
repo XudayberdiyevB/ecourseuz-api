@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -62,16 +61,6 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='ContactForm',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255)),
-                ('phone', models.CharField(max_length=30, unique=True)),
-                ('email', models.EmailField(max_length=254, unique=True)),
-                ('message', models.TextField()),
-            ],
-        ),
-        migrations.CreateModel(
             name='ContactUs',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -87,7 +76,10 @@ class Migration(migrations.Migration):
             name='SocialMedia',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('type', models.CharField(choices=[('facebook', 'Facebook'), ('youtube', 'Youtube'), ('instagram', 'Instagram'), ('whatsapp', 'Whatsapp'), ('telegram', 'Telegram')], default='', max_length=100, unique=True)),
+                ('type', models.CharField(
+                    choices=[('facebook', 'Facebook'), ('youtube', 'Youtube'), ('instagram', 'Instagram'),
+                             ('whatsapp', 'Whatsapp'), ('telegram', 'Telegram')], default='', max_length=100,
+                    unique=True)),
                 ('name', models.CharField(blank=True, max_length=100, unique=True)),
                 ('urls', models.URLField()),
             ],
@@ -100,7 +92,8 @@ class Migration(migrations.Migration):
                 ('slug', models.SlugField(blank=True, max_length=255, unique=True)),
                 ('description', models.TextField(null=True)),
                 ('position', models.PositiveSmallIntegerField(default=1)),
-                ('parent', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='children', to='common.category')),
+                ('parent', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE,
+                                             related_name='children', to='common.category')),
             ],
         ),
     ]

@@ -1,5 +1,7 @@
 from django.db import models
 
+from common.models import BaseModel
+
 
 class ContactUs(models.Model):
     country = models.CharField(max_length=500)
@@ -12,8 +14,11 @@ class ContactUs(models.Model):
     def __str__(self):
         return self.country
 
+    class Meta:
+        verbose_name_plural = 'ContactUs'
 
-class ContactForm(models.Model):
+
+class ContactForm(BaseModel):
     name = models.CharField(max_length=255)
     phone = models.CharField(max_length=30, unique=True)
     email = models.EmailField(unique=True)
@@ -21,3 +26,6 @@ class ContactForm(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = 'ContactForm'

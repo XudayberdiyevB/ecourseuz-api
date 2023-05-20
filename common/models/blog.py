@@ -19,5 +19,5 @@ class Blog(BaseModel):
         self.slug = slugify(self.title)
         return super().save(force_insert, force_update, using, update_fields)
 
-
-
+    class Meta:
+        verbose_name_plural = 'Blog'

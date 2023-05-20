@@ -9,6 +9,8 @@ class ApplicationForm(BaseModel):
     email = models.EmailField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='application')
 
-
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = 'ApplicationForm'
