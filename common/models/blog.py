@@ -21,3 +21,5 @@ class Blog(BaseModel):
 
     class Meta:
         verbose_name_plural = 'Blog'
+
+

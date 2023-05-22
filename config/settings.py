@@ -43,10 +43,13 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'drf_yasg',
-    'django.contrib.staticfiles',
+    'dj_rest_auth',
+    'django_filters',
     # My Apps
     'common',
     'users',
@@ -148,6 +151,16 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=20),
+    "REFRESH_TOKEN_LIFETIME": timedelta(minutes=30),
+    "UPDATE_LAST_LOGIN": True,
+}
+
+REST_AUTH = {
+    'USE_JWT': True
 }
 
 SIMPLE_JWT = {
