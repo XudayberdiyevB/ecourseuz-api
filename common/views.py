@@ -21,7 +21,7 @@ class SocialMediaDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class BannerListApiView(generics.ListAPIView):
-    queryset = Banner.objects.all()
+    queryset = Banner.objects.order_by("position")
     serializer_class = BannerListSerializers
 
 
