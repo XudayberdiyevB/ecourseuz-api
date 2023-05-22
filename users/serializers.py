@@ -3,7 +3,7 @@ from django.contrib.auth.models import update_last_login
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers, exceptions
 from rest_framework.exceptions import ValidationError
-from rest_framework_simplejwt.serializers import PasswordField
+from rest_framework_simplejwt.serializers import TokenObtainSerializer, PasswordField
 from rest_framework_simplejwt.settings import api_settings
 from rest_framework_simplejwt.tokens import RefreshToken
 
@@ -13,7 +13,9 @@ from .models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("id", "username", "first_name", "last_name", "phone", "job", "age", "type")
+        fields = (
+            "id", "username", "email", "first_name", "last_name", "phone", "job", "address", "birth_date", "age", "type"
+        )
 
 
 class CustomTokenObtainPairSerializer(serializers.Serializer):
@@ -65,7 +67,9 @@ class CustomTokenObtainPairSerializer(serializers.Serializer):
 class UserDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("id", "username", "first_name", "last_name", "phone", "job", "age", "type")
+        fields = (
+            "id", "username", "email", "first_name", "last_name", "phone", "job", "address", "birth_date", "age"
+        )
         read_only_fields = ("id",)
 
 
@@ -77,7 +81,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         model = User
         fields = (
             "id",
-            "email",
+            "username",
             "password1",
             "password2"
         )
@@ -100,3 +104,12 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.set_password(password1)
         user.save()
         return user
+
+
+class SendEmailVerificationCodeSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+
+
+class CheckEmailVerificationCodeSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    code = serializers.CharField(min_length=6, max_length=6)

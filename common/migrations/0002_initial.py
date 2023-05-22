@@ -24,5 +24,7 @@ class Migration(migrations.Migration):
             model_name='applicationform',
             name='category',
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='application', to='common.category'),
+            name='course',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='application', to='course.course'),
         ),
     ]

@@ -20,3 +20,6 @@ class SocialMedia(models.Model):
     def save(self, *args, **kwargs):
         self.name = slugify(self.type)
         super(SocialMedia, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name_plural = 'SocialMedia'
