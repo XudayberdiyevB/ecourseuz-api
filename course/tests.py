@@ -35,7 +35,7 @@ class TestCourseApply(TestCase):
 
         self.assertEqual(response.status_code, 201)
         self.assertNotEqual(response.status_code, 400)
-        self.assertEqual(response.data["status"], self.new_course["status"])
+        self.assertEqual(response.data["title"], self.new_course["title"])
 
     def test_course_apply_detail(self):
         url = reverse("course_apply_detail", kwargs={"slug": self.course_apply.slug})
