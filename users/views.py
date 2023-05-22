@@ -4,6 +4,13 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.urls import reverse
 from django.utils.crypto import get_random_string
+from django.contrib.auth import authenticate
+from django.http import Http404
+from django.shortcuts import render
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt.views import TokenObtainPairView
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
@@ -15,6 +22,11 @@ from rest_framework.views import APIView
 from users.serializers import UserDetailSerializer, UserSerializer, RegisterSerializer, \
     SendEmailVerificationCodeSerializer, CheckEmailVerificationCodeSerializer
 from .models import User, VerificationCode
+from .serializers import CustomTokenObtainPairSerializer, UserDetailSerializer, UserSerializer, RegisterSerializer
+
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
 
 
 class RegisterView(APIView):
@@ -35,7 +47,8 @@ class ProfileView(APIView):
     def get(self, request, *args, **kwargs):
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
-
+    
+    @swagger_auto_schema(request_body=UserDetailSerializer)
     def put(self, request, *args, **kwargs):
         serializer = UserDetailSerializer(instance=request.user, data=request.data)
         if serializer.is_valid():

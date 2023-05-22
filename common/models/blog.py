@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 
-from . import BaseModel
+from common.models.base import BaseModel
 from users.models import User
 
 
