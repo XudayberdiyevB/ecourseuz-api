@@ -40,7 +40,7 @@ class ApplicationFormView(generics.CreateAPIView):
     serializer_class = ApplicationFormSerializer
 
     @swagger_auto_schema(request_body=ApplicationFormSerializer)
-    def post(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs):
         serializer = ApplicationFormSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         email = serializer.validated_data.get("email")

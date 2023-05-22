@@ -1,7 +1,11 @@
 from django.db import models
+<<<<<<< Updated upstream
 
 from common.models import Category
 from common.models.base import BaseModel
+=======
+from course.models import Course
+>>>>>>> Stashed changes
 
 
 class ApplicationForm(BaseModel):
