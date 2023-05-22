@@ -9,3 +9,9 @@ class Banner(BaseModel):
     image = models.ImageField(upload_to='banner/images')
     position = models.PositiveSmallIntegerField(default=1)
     is_active = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = 'Banner'

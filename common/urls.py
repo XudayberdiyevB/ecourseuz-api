@@ -5,6 +5,7 @@ from common.views import (
     ContactFormListApiView, BlogList, BlogDetail, SocialMediaList, SocialMediaDetail
 )
 
+app_name = 'common'
 urlpatterns = [
     path('blogs/', BlogList.as_view(), name='blog-list'),
     path('blogs/<int:pk>/', BlogDetail.as_view(), name='blog-detail'),

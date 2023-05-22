@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from common.models import Blog, SocialMedia
+from common.models import Blog, SocialMedia, AboutUs, Banner, ContactUs, ContactForm
 
 from common.models.category import Category
 
@@ -17,10 +17,42 @@ class BlogAdmin(admin.ModelAdmin):
     search_fields = ['title']
 
 
+class BannerAdmin(admin.ModelAdmin):
+    list_display = ["id", "title", "description", "position", ]
+    ordering = ['-id']
+    search_fields = ['title']
+
+
+class SocialMediaAdmin(admin.ModelAdmin):
+    list_display = ["id", "name", "type", "urls", ]
+    ordering = ['-id']
+    search_fields = ['name']
+
+
+class AboutUsAdmin(admin.ModelAdmin):
+    list_display = ['id', 'title', 'description', ]
+    ordering = ['-id']
+    search_fields = ['title']
+
+
+class ContactUsAdmin(admin.ModelAdmin):
+    list_display = ['id', 'country', 'city', 'street', 'location', 'email', 'phone']
+    search_fields = ['title']
+
+
+class ContactFormAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'email', 'phone', 'message']
+    list_display_links = ['name']
+    ordering = ['-created_at']
+    search_fields = ['email']
+
+
 # Register your models here.
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Blog, BlogAdmin)
-admin.site.register(SocialMedia)
-admin.site.register(ContactUs)
-admin.site.register(AboutUs)
+admin.site.register(Banner, BannerAdmin)
+admin.site.register(SocialMedia, SocialMediaAdmin)
+admin.site.register(AboutUs, AboutUsAdmin)
+admin.site.register(ContactUs, ContactUsAdmin)
+admin.site.register(ContactForm, ContactFormAdmin)
 admin.site.register(ApplicationForm)

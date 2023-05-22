@@ -1,3 +1,3 @@
-# RUXSATIMSIZ XECH NARSA YOZMELA !!!  https://github.com/Devdavlat
-# e-course.uz 
+# e-course.uz
+
 ## API For ecourse.uz

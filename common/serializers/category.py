@@ -6,13 +6,12 @@ from common.models import Category
 class CategorySerializers(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['id', 'name', 'description', 'position', 'children']
+        fields = ['name', 'slug', ]
 
 
 class CategoryListSerializers(serializers.ModelSerializer):
     children = CategorySerializers(many=True, read_only=True)
-    id = serializers.IntegerField(read_only=False)
 
     class Meta:
         model = Category
-        fields = ['id', 'name', 'description', 'position', 'children']
+        fields = ['name', 'slug', 'position', 'children']
