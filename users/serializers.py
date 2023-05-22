@@ -13,7 +13,9 @@ from .models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("id", "username", "first_name", "last_name", "phone", "job", "age", "type")
+        fields = (
+            "id", "username", "email", "first_name", "last_name", "phone", "job", "address", "birth_date", "age", "type"
+        )
 
 
 class CustomTokenObtainPairSerializer(serializers.Serializer):
@@ -65,7 +67,9 @@ class CustomTokenObtainPairSerializer(serializers.Serializer):
 class UserDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("id", "username", "first_name", "last_name", "phone", "job", "age", "type")
+        fields = (
+            "id", "username", "email", "first_name", "last_name", "phone", "job", "address", "birth_date", "age"
+        )
         read_only_fields = ("id",)
 
 
@@ -77,7 +81,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         model = User
         fields = (
             "id",
-            "email",
+            "username",
             "password1",
             "password2"
         )
