@@ -17,3 +17,6 @@ class Category(models.Model):
             self.slug = slugify(self.name.lower())
         self.slug = slugify(self.name)
         return super().save(force_insert, force_update, using, update_fields)
+
+    class Meta:
+        verbose_name_plural = 'Category'
