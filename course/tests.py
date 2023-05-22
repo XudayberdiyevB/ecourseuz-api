@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.test import Client
-from models import CourseApply, Course
+from course.models import CourseApply, Course
 from users.models import User
 
 client = Client()
