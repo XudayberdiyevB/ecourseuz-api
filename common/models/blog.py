@@ -20,4 +20,3 @@ class Blog(BaseModel):
         return super().save(force_insert, force_update, using, update_fields)
 
 
-

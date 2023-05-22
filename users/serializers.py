@@ -3,7 +3,7 @@ from django.contrib.auth.models import update_last_login
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers, exceptions
 from rest_framework.exceptions import ValidationError
-from rest_framework_simplejwt.serializers import PasswordField
+from rest_framework_simplejwt.serializers import TokenObtainSerializer, PasswordField
 from rest_framework_simplejwt.settings import api_settings
 from rest_framework_simplejwt.tokens import RefreshToken
 
@@ -100,3 +100,12 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.set_password(password1)
         user.save()
         return user
+
+
+class SendEmailVerificationCodeSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+
+
+class CheckEmailVerificationCodeSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    code = serializers.CharField(min_length=6, max_length=6)

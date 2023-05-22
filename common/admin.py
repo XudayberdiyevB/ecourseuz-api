@@ -21,3 +21,6 @@ class BlogAdmin(admin.ModelAdmin):
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Blog, BlogAdmin)
 admin.site.register(SocialMedia)
+admin.site.register(ContactUs)
+admin.site.register(AboutUs)
+admin.site.register(ApplicationForm)
