@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.sites.models import Site
 
 from common.models import Blog, SocialMedia, AboutUs, Banner, ContactUs, ContactForm
 
@@ -55,4 +56,3 @@ admin.site.register(SocialMedia, SocialMediaAdmin)
 admin.site.register(AboutUs, AboutUsAdmin)
 admin.site.register(ContactUs, ContactUsAdmin)
 admin.site.register(ContactForm, ContactFormAdmin)
-admin.site.register(ApplicationForm)

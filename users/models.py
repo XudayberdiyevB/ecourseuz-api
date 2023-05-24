@@ -3,8 +3,11 @@ from datetime import timedelta
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 from django.db import models
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from .managers import CustomUserManager
+
+AUTH_PROVIDERS = {'facebook': 'facebook', 'google': 'google', 'email': 'email'}
 
 
 class User(AbstractUser):
@@ -38,6 +41,14 @@ class User(AbstractUser):
     @property
     def full_name(self):
         return self.get_full_name()
+
+    @property
+    def tokens(self):
+        refresh = RefreshToken.for_user(self)
+        return {
+            "refresh": str(refresh),
+            "access": str(refresh.access_token)
+        }
 
 
 class SocialAccount(models.Model):
