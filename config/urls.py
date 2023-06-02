@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include, re_path
@@ -38,12 +39,13 @@ schema_view = get_schema_view(
     permission_classes=[permissions.AllowAny],
 )
 
-urlpatterns = [
+urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
     path('', include('common.urls'), name='common'),
-    path('course/', include('course.urls'), name='course'),
-]
+    path('course/', include('course.urls'), name='cou'
+                                                 'rse'),
+)
 
 swagger_urls = [
     re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),

@@ -1,0 +1,63 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-06-02 18:17+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: course/models.py:11
+msgid "Beginner"
+msgstr "Boshlang'ich"
+
+#: course/models.py:12
+msgid "Intermediate"
+msgstr "O'rtacha"
+
+#: course/models.py:13
+msgid "Advanced"
+msgstr "Murakkab"
+
+#: course/models.py:15
+msgid "Name"
+msgstr "Nomi"
+
+#: course/models.py:17
+msgid "Description"
+msgstr "Tavsifi"
+
+#: course/models.py:18
+msgid "Price"
+msgstr "Narxi"
+
+#: course/models.py:60
+msgid "Unpaid"
+msgstr "To'lanmagan"
+
+#: course/models.py:61
+msgid "Paid"
+msgstr "To'langan"
+
+#: users/serializers.py:32
+msgid "No active account found with the given credentials"
+msgstr ""
+
+#: users/serializers.py:96
+msgid "Username is already taken."
+msgstr "Foydalanuvchi nomi allaqachon mavjud"
+
+#: users/serializers.py:98
+msgid "Passwords didn't match."
+msgstr "Parollar mos kelmadi"

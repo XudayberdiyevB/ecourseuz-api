@@ -8,7 +8,18 @@ class CourseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ('id', 'name', 'desc', 'price', 'discount', 'level', 'author', 'category', 'image', 'video')
+        fields = (
+            'id',
+            'name',
+            'desc',
+            'price',
+            'discount',
+            'level',
+            'author',
+            'category',
+            'image',
+            'video'
+        )
 
 
 class CourseApplySerializer(serializers.ModelSerializer):
@@ -33,4 +44,3 @@ class CourseReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = ('id', 'user', 'course', 'rate', 'comment')
-        

@@ -1,9 +1,9 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from users.models import User
-from common.models.category import Category
 from common.models import BaseModel
+from common.models.category import Category
+from users.models import User
 
 
 class Course(BaseModel):
@@ -12,10 +12,10 @@ class Course(BaseModel):
         INTERMEDIATE = "intermediate", _("Intermediate")
         ADVANCED = "advanced", _("Advanced")
 
-    name = models.CharField(max_length=250)
+    name = models.CharField(_("Name"), max_length=250)
     slug = models.SlugField()
-    desc = models.TextField()
-    price = models.PositiveIntegerField()
+    desc = models.TextField(_("Description"))
+    price = models.PositiveIntegerField(_("Price"))
     discount = models.PositiveIntegerField()
     level = models.CharField(max_length=32, choices=CourseLevels.choices, default=CourseLevels.BEGINNER)
     author = models.ForeignKey(

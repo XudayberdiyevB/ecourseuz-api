@@ -1,9 +1,9 @@
 from django.shortcuts import get_object_or_404
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
-from rest_framework import generics, status
 from drf_yasg.utils import swagger_auto_schema
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticated, SAFE_METHODS, AllowAny
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from course.models import Course, CourseApply, CourseContent, Review
 from course.serializers import (
@@ -17,13 +17,19 @@ from course.serializers import (
 class CourseApiView(APIView):
     permission_classes = [IsAuthenticated]
 
+    def get_permissions(self):
+        if self.request.method in SAFE_METHODS:
+            self.permission_classes = [AllowAny]
+        return [permission() for permission in self.permission_classes]
+
     def get(self, request, *args, **kwargs):
         course_applies = Course.objects.all()
         serializer = CourseSerializer(course_applies, many=True)
+        return Response(serializer.data)
 
     @swagger_auto_schema(request_body=CourseSerializer)
     def post(self, request, *args, **kwargs):
-        serializer = CourseSerializer( data=request.data)
+        serializer = CourseSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
