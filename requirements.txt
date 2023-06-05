@@ -1,4 +1,4 @@
-django==4.2.1
+django
 psycopg2-binary==2.9.6
 django-environ==0.10.0
 djangorestframework==3.14.0
