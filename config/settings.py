@@ -29,10 +29,10 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env("SECRET_KEY")
+SECRET_KEY = env("SECRET_KEY", default="django-insecure-lp26u14ipp0g")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env("DEBUG")
+DEBUG = env("DEBUG", default=True)
 
 ALLOWED_HOSTS = ['*']
 
@@ -100,12 +100,13 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env("DB_NAME"),
-        'USER': env("DB_USER"),
-        'PASSWORD': env("DB_PASSWORD"),
-        'HOST': env("DB_HOST"),
-        'PORT': 5432,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': "ecourse_db",
+        # 'NAME': env("DB_NAME"),  # psql
+        # 'USER': env("DB_USER"),
+        # 'PASSWORD': env("DB_PASSWORD"),
+        # 'HOST': env("DB_HOST"),
+        # 'PORT': 5432,
     }
 }
 
@@ -184,10 +185,10 @@ REST_AUTH = {
 }
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = env("EMAIL_HOST")
-EMAIL_PORT = env("EMAIL_PORT")
-EMAIL_HOST_USER = env("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+EMAIL_HOST = env("EMAIL_HOST", default="email_host")
+EMAIL_PORT = env("EMAIL_PORT", default="email_port")
+EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="email_user")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="email_pass")
 EMAIL_USE_TLS = True
 
 AUTHENTICATION_BACKENDS = ["users.backends.CustomModelBackend"]
