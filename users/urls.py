@@ -8,7 +8,7 @@ from users.views import (
     SendEmailVerificationCodeView,
     CheckEmailVerificationCodeView,
     CheckEmailVerificationCodeWithParams,
-    CustomTokenObtainPairView
+    CustomTokenObtainPairView, SendPhoneVerificationCodeView
 )
 
 urlpatterns = [
@@ -21,4 +21,5 @@ urlpatterns = [
     path("email/verification/", SendEmailVerificationCodeView.as_view(), name="send-email-code"),
     path("email/check-verification/", CheckEmailVerificationCodeView.as_view(), name="check-email-code"),
     path("email/check-verification-code/", CheckEmailVerificationCodeWithParams.as_view(), name="check-email"),
+    path("phone/verification-code/", SendPhoneVerificationCodeView.as_view())
 ]

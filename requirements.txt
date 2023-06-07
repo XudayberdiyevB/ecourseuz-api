@@ -1,8 +1,10 @@
+celery==5.3.0
 django==4.2.1
 psycopg2-binary==2.9.6
 django-environ==0.10.0
 djangorestframework==3.14.0
 django-modeltranslation==0.18.10
+PaycomUz==3.0
 Pillow==9.5.0
 djangorestframework-simplejwt==5.2.2
 drf-yasg==1.21.5
@@ -10,3 +12,4 @@ dj-rest-auth==4.0.0
 facebook-sdk==3.1.0
 google-api-core==2.11.0
 google-api-python-client==2.86.0
+redis==4.5.5

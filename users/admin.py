@@ -12,5 +12,5 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(VerificationCode)
 class VerificationCodeAdmin(admin.ModelAdmin):
-    list_display = ["email", "code", "last_sent_time", "expired_at", "is_verified"]
+    list_display = ["email", "phone", "code", "last_sent_time", "expired_at", "is_verified"]
     ordering = ["-last_sent_time"]

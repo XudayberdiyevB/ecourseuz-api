@@ -8,6 +8,7 @@ from rest_framework_simplejwt.settings import api_settings
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import User
+from .utils import phone_validator
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -108,6 +109,10 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 class SendEmailVerificationCodeSerializer(serializers.Serializer):
     email = serializers.EmailField()
+
+
+class SendPhoneVerificationCodeSerializer(serializers.Serializer):
+    phone = serializers.CharField(max_length=15, validators=[phone_validator])
 
 
 class CheckEmailVerificationCodeSerializer(serializers.Serializer):

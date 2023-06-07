@@ -1,10 +1,5 @@
 from datetime import timedelta
 
-from allauth.account.adapter import get_adapter
-from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
-from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
-from dj_rest_auth.registration.views import SocialLoginView
-from dj_rest_auth.views import LoginView
 from django.conf import settings
 from django.core.mail import send_mail
 from django.urls import reverse
@@ -18,9 +13,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from users.serializers import SendEmailVerificationCodeSerializer, CheckEmailVerificationCodeSerializer
+from users.serializers import SendEmailVerificationCodeSerializer, CheckEmailVerificationCodeSerializer, \
+    SendPhoneVerificationCodeSerializer
 from .models import User, VerificationCode
 from .serializers import CustomTokenObtainPairSerializer, UserDetailSerializer, UserSerializer, RegisterSerializer
+from .tasks import send_verification_code
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
@@ -110,3 +107,22 @@ class CheckEmailVerificationCodeWithParams(APIView):
         verification_code.is_verified = True
         verification_code.save(update_fields=["is_verified"])
         return Response({"detail": "Verification code is verified."})
+
+
+class SendPhoneVerificationCodeView(APIView):
+
+    @swagger_auto_schema(request_body=SendPhoneVerificationCodeSerializer)
+    def post(self, request, *args, **kwargs):
+        serializer = SendPhoneVerificationCodeSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        phone = serializer.validated_data.get("phone")
+        code = get_random_string(allowed_chars="0123456789", length=6)
+        verification_code, _ = (
+            VerificationCode.objects.update_or_create(
+                phone=phone, defaults={"code": code, "is_verified": False}
+            )
+        )
+        verification_code.expired_at = verification_code.last_sent_time + timedelta(seconds=60)
+        verification_code.save(update_fields=["expired_at"])
+        send_verification_code.delay(phone, code)
+        return Response({"detail": "Verification code sent."})

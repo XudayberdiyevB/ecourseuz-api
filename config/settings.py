@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'django_filters',
     'dj_rest_auth',
+    # 'paycomuz',
     # My Apps
     'common',
     'users',
@@ -100,13 +101,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': "ecourse_db",
-        # 'NAME': env("DB_NAME"),  # psql
-        # 'USER': env("DB_USER"),
-        # 'PASSWORD': env("DB_PASSWORD"),
-        # 'HOST': env("DB_HOST"),
-        # 'PORT': 5432,
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env("DB_NAME"),
+        'USER': env("DB_USER"),
+        'PASSWORD': env("DB_PASSWORD"),
+        'HOST': env("DB_HOST"),
+        'PORT': 5432,
     }
 }
 
@@ -196,3 +196,17 @@ AUTHENTICATION_BACKENDS = ["users.backends.CustomModelBackend"]
 LOCALE_PATHS = [
     BASE_DIR / 'locale/',
 ]
+
+# PAYCOM_SETTINGS = {
+#     "KASSA_ID": env("PAYCOM_KASSA_ID"),
+#     "SECRET_KEY": env("PAYCOM_SECRET_KEY"),
+#     "ACCOUNTS": {
+#         "KEY": env("PAYCOM_KEY")
+#     }
+# }
+
+SMS_EMAIL = env("SMS_EMAIL")
+SMS_KEY = env("SMS_KEY")
+
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_BROKER_URL = "redis://localhost:6379/0"

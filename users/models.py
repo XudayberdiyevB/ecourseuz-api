@@ -1,11 +1,11 @@
 from datetime import timedelta
 
 from django.contrib.auth.models import AbstractUser
-from django.utils.translation import gettext_lazy as _
 from django.db import models
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from .managers import CustomUserManager
+from .utils import phone_validator
 
 AUTH_PROVIDERS = {'facebook': 'facebook', 'google': 'google', 'email': 'email'}
 
@@ -18,7 +18,7 @@ class User(AbstractUser):
 
     username = models.CharField(max_length=32, unique=True)
     email = models.EmailField(unique=True, null=True)
-    phone = models.CharField(max_length=15, unique=True, null=True)
+    phone = models.CharField(max_length=15, unique=True, null=True, validators=[phone_validator])
     job = models.CharField(max_length=129, null=True)
     profile_picture = models.ImageField(upload_to='profile_picture/', null=True, blank=True)
     address = models.CharField(max_length=256, null=True)
@@ -61,18 +61,26 @@ class SocialAccount(models.Model):
 
 
 class VerificationCode(models.Model):
+    class VerificationTypes(models.TextChoices):
+        REGISTER = "register"
+        LOGIN = "login"
+
     code = models.CharField(max_length=6)
     user = models.ForeignKey(
         "users.User", on_delete=models.CASCADE, related_name="verification_codes", null=True, blank=True
     )
     email = models.EmailField(unique=True, null=True)
-    # verification_type = models.CharField(max_length=50, choices=VerificationTypes.choices)
+    phone = models.CharField(max_length=15, unique=True, null=True, validators=[phone_validator])
+    verification_type = models.CharField(max_length=50, choices=VerificationTypes.choices)
     last_sent_time = models.DateTimeField(auto_now=True)
     is_verified = models.BooleanField(default=False)
     expired_at = models.DateTimeField(null=True)
 
     def __str__(self):
         return self.email
+
+    class Meta:
+        unique_together = ["phone", "verification_type"]
 
     @property
     def is_expire(self):
