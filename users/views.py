@@ -122,7 +122,5 @@ class SendPhoneVerificationCodeView(APIView):
                 phone=phone, defaults={"code": code, "is_verified": False}
             )
         )
-        verification_code.expired_at = verification_code.last_sent_time + timedelta(seconds=60)
-        verification_code.save(update_fields=["expired_at"])
         send_verification_code.delay(phone, code)
         return Response({"detail": "Verification code sent."})

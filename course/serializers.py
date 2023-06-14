@@ -3,6 +3,12 @@ from rest_framework import serializers
 from course.models import Course, CourseApply, CourseContent, Review
 
 
+class CourseSerializerForLog(serializers.ModelSerializer):
+    class Meta:
+        model = Course
+        fields = "__all__"
+
+
 class CourseSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
 

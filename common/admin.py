@@ -1,8 +1,6 @@
 from django.contrib import admin
-from django.contrib.sites.models import Site
 
-from common.models import Blog, SocialMedia, AboutUs, Banner, ContactUs, ContactForm
-
+from common.models import Blog, SocialMedia, AboutUs, Banner, ContactUs, ContactForm, Log
 from common.models.category import Category
 
 
@@ -56,3 +54,4 @@ admin.site.register(SocialMedia, SocialMediaAdmin)
 admin.site.register(AboutUs, AboutUsAdmin)
 admin.site.register(ContactUs, ContactUsAdmin)
 admin.site.register(ContactForm, ContactFormAdmin)
+admin.site.register(Log)

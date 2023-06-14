@@ -1,9 +1,7 @@
 from django.db import models
 
-from common.models import Category
+from common.models.category import Category
 from common.models.base import BaseModel
-
-from course.models import Course
 
 
 class ApplicationForm(BaseModel):
