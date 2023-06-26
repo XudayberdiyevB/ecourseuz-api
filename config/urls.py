@@ -1,11 +1,10 @@
 from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
-from django.contrib import admin
-from django.urls import path, include, re_path
-from rest_framework import permissions
-from drf_yasg.views import get_schema_view
+from django.urls import re_path
 from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from rest_framework import permissions
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -25,7 +24,6 @@ schema_view = get_schema_view(
 from django.contrib import admin
 from django.urls import path, include
 
-
 schema_view = get_schema_view(
     openapi.Info(
         title="P10 Api",
@@ -43,8 +41,8 @@ urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
     path('', include('common.urls'), name='common'),
-    path('course/', include('course.urls'), name='cou'
-                                                 'rse'),
+    path('course/', include('course.urls'), name='course'),
+    path('bot/', include('bot.urls'), name='bot'),
 )
 
 swagger_urls = [

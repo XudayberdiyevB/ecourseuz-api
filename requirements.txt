@@ -1,5 +1,7 @@
 celery==5.3.0
 django==4.2.1
+django-allauth==0.54.0
+django-filter==23.2
 psycopg2-binary==2.9.6
 django-environ==0.10.0
 djangorestframework==3.14.0
@@ -13,3 +15,4 @@ facebook-sdk==3.1.0
 google-api-core==2.11.0
 google-api-python-client==2.86.0
 redis==4.5.5
+pyTelegramBotAPI==4.12.0
