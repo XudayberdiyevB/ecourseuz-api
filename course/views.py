@@ -1,6 +1,12 @@
+from datetime import datetime
+from io import BytesIO
+
+import pandas as pd
+from django.http import FileResponse
 from django.shortcuts import get_object_or_404
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
+from rest_framework.parsers import MultiPartParser
 from rest_framework.permissions import IsAuthenticated, SAFE_METHODS, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -10,7 +16,7 @@ from course.serializers import (
     CourseSerializer,
     CourseApplySerializer,
     CourseContentSerializer,
-    CourseReviewSerializer
+    CourseReviewSerializer, ImportFileSerializer
 )
 
 
@@ -160,3 +166,56 @@ class CourseReviewDetailView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(status.HTTP_400_BAD_REQUEST)
+
+
+class CourseExportView(APIView):
+    def get(self, request):
+        columns = {
+            "id": "ID",
+            "name": "Nomi",
+            "desc": "Batafsil ma'lumot",
+            "level": "Daraja",
+            "price": "Narxi",
+            "author__first_name": "author__first_name",
+            "author__last_name": "author__last_name"
+        }
+        df = pd.DataFrame(
+            list(
+                Course.objects.values(
+                    "id", "name", "desc", "level", "price", "author__first_name", "author__last_name"
+                )
+            ),
+            columns=list(columns.keys())
+        )
+        df["full_name"] = df["author__first_name"] + " " + df["author__last_name"]
+        df.drop(columns=["author__first_name", "author__last_name"], inplace=True)
+        columns.update({"full_name": "Muallif"})
+        df.rename(columns=columns, inplace=True)
+
+        file_like_object = BytesIO()
+        df.to_excel(file_like_object, index=False)
+        file_like_object.seek(0)  # move to the beginning of file
+        response = FileResponse(file_like_object)
+        filename = f"Courses_{datetime.now().strftime('%Y%m%d_%H%M')}"
+        response['Content-Disposition'] = f'attachment; filename="{filename}.xlsx"'
+
+        return response
+
+
+class CourseImportView(APIView):
+    parser_classes = [MultiPartParser]
+
+    @swagger_auto_schema(request_body=ImportFileSerializer)
+    def post(self, request):
+        serializer = ImportFileSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        file = request.FILES.get("file")
+        df = pd.read_excel(file)
+        for index, row in df.iterrows():
+            Course.objects.update_or_create(id=row["ID"], defaults={
+                "name": row["Nomi"],
+                "desc": row["Batafsil ma'lumot"],
+                "price": row["Narxi"],
+                "level": row["Daraja"]
+            })
+        return Response("Course import started.")

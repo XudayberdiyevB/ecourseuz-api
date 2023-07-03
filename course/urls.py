@@ -8,9 +8,8 @@ from course.views import (
     CourseContentApiView,
     CourseContentDetailView,
     CourseReviewApiView,
-    CourseReviewDetailView
+    CourseReviewDetailView, CourseExportView, CourseImportView
 )
-
 
 urlpatterns = [
     path("course/", CourseApiView.as_view(), name="course-api"),
@@ -21,4 +20,6 @@ urlpatterns = [
     path("course-content/<int:pk>/", CourseContentDetailView.as_view(), name="course-content-detail"),
     path("course-review/", CourseReviewApiView.as_view(), name="course-review"),
     path("course-review/<int:pk>/", CourseReviewDetailView.as_view(), name="course-review-detail"),
+    path("export/", CourseExportView.as_view()),
+    path("import/", CourseImportView.as_view())
 ]

@@ -50,3 +50,7 @@ class CourseReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = ('id', 'user', 'course', 'rate', 'comment')
+
+
+class ImportFileSerializer(serializers.Serializer):
+    file = serializers.FileField()
