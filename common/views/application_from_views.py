@@ -1,15 +1,12 @@
 from django.conf import settings
-from django.core.mail import send_mail, EmailMultiAlternatives
-from django.template import Template
+from django.core.mail import send_mail
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework import generics, status
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from common.models import ApplicationForm
 from common.serializers.application_form import ApplicationFormSerializer
-
 
 
 class ApplicationFormView(APIView):
